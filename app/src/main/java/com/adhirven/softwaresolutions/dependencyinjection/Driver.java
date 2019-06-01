@@ -1,10 +1,14 @@
 package com.adhirven.softwaresolutions.dependencyinjection;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
-public class Wheels {
+
+@Singleton
+public class Driver {
+
 
     @Inject
-    public Wheels() {
+    public Driver() {
     }
 }

@@ -2,19 +2,29 @@ package com.adhirven.softwaresolutions.dependencyinjection;
 
 import android.os.Bundle;
 
+import com.adhirven.softwaresolutions.dependencyinjection.car.Car;
+import com.adhirven.softwaresolutions.dependencyinjection.dagger.CarComponent;
+import com.adhirven.softwaresolutions.dependencyinjection.dagger.DaggerCarComponent;
+import com.adhirven.softwaresolutions.dependencyinjection.dagger.DieselEngineModule;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import javax.inject.Inject;
+
 public class MainActivity extends AppCompatActivity {
 
-    private Car car;
+    private static final String TAG = "MainActivity";
+
+    @Inject
+    Car bmwCar, audiCar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,13 +43,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        CarComponent carComponent = ((DependencyInjection) getApplication()).getAppComponent();
 
-        CarComponent carComponent = DaggerCarComponent.create();
+        carComponent.inject(this);
 
-        car = carComponent.getCar();
-
-        car.drive();
-
+        bmwCar.drive();
+        audiCar.drive();
 
     }
 
